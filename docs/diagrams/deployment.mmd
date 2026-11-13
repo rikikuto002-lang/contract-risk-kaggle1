@@ -1,0 +1,15 @@
+%% Sơ đồ triển khai: mục đích - tách rõ phần Kaggle (nghiên cứu, huấn luyện) và phần production
+flowchart TB
+    subgraph Kaggle [Kaggle - nghiên cứu và huấn luyện]
+        DS[Dataset mã nguồn] --> KN[Notebook kernel_entry.py]
+        DSC[Dataset dữ liệu đã ẩn danh] --> KN
+        KN --> OUT[/kaggle/working: report, metrics]
+        KN --> MDL[Kaggle Model / joblib]
+    end
+    subgraph Prod [Production - đề xuất, ngoài Kaggle]
+        IMG[Docker image, tag theo phiên bản] --> K8S[Kubernetes hoặc serverless]
+        K8S --> API[REST API FastAPI]
+        API --> DB[(Kho báo cáo, nhật ký truy vết)]
+        CFG[(rules.yaml, phiên bản luật)] --> K8S
+    end
+    MDL -. chuyển giao có kiểm định .-> IMG

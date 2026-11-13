@@ -1,0 +1,57 @@
+# Cấu hình chung của dự án. Không hard-code đường dẫn trong mã nguồn.
+project: contract-risk-flagging
+seed: 42
+
+disclaimer: >
+  Hệ thống chỉ gắn cờ và giải thích rủi ro để người dùng tham khảo.
+  Không đưa ra kết luận pháp lý và không thay thế tư vấn của luật sư.
+
+paths:
+  raw: data/raw
+  processed: data/processed
+  models: models
+  outputs: outputs
+
+rules_file: config/rules.yaml
+
+data:
+  contract_types: [lao_dong, thue_nha, thuong_mai]
+  group_column: contract_id          # chia train/test theo HỢP ĐỒNG, không theo điều khoản
+  text_column: text
+  label_columns:
+    - lao_dong
+    - thue_nha_rui_ro
+    - thanh_toan_phat
+    - trach_nhiem_boi_thuong
+    - du_lieu_bao_mat
+    - trung_tinh
+  min_clause_chars: 20
+
+model:
+  tfidf:
+    ngram_range: [1, 2]
+    min_df: 2
+    sublinear_tf: true
+  logreg:
+    C: 4.0
+    max_iter: 1000
+    class_weight: balanced
+  decision_threshold: 0.5
+
+evaluation:
+  n_splits: 5
+
+scoring:
+  weights:
+    CIV-01: 0.9
+    CIV-02: 0.7
+    LAB-01: 1.0
+    LAB-02: 0.6
+    LAB-03: 0.8
+    LEA-01: 0.9
+  confidence:
+    vi_pham: 1.0
+    can_xem_xet: 0.4
+  thresholds:
+    medium: 0.5
+    high: 1.0

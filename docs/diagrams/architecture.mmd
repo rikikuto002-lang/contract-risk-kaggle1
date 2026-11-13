@@ -1,0 +1,16 @@
+%% Sơ đồ kiến trúc tổng thể: mục đích - xác định các thành phần và luồng dữ liệu chính
+flowchart LR
+    U[Người dùng tải hợp đồng .txt/.docx/.pdf] --> OCR{Là ảnh quét?}
+    OCR -- Có --> O[OCR tiếng Việt + độ tin cậy ký tự]
+    OCR -- Không --> N[Chuẩn hóa Unicode NFC]
+    O --> N
+    N --> S[Phân đoạn Điều/Khoản]
+    S --> R[Rule-based engine]
+    S --> C[Classifier TF-IDF + LR]
+    S --> L[LLM few-shot động - tùy chọn]
+    L --> G[Kiểm tra trích dẫn groundedness]
+    R --> M[Hợp nhất theo thứ tự ưu tiên]
+    C --> M
+    G --> M
+    M --> SC[Chấm điểm rủi ro]
+    SC --> RP[Báo cáo JSON có trích dẫn + miễn trừ trách nhiệm]

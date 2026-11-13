@@ -1,0 +1,14 @@
+%% Quy trình huấn luyện baseline: mục đích - thể hiện chia theo hợp đồng và chỉ dùng tập kiểm tra một lần
+flowchart TD
+    D[(clauses_labeled.csv)] --> NM[Chuẩn hóa văn bản]
+    NM --> GS{GroupKFold theo contract_id}
+    GS --> F1[Fold train]
+    GS --> F2[Fold validation]
+    F1 --> TF[TF-IDF ngram 1-2, min_df 2]
+    TF --> LR[OneVsRest + Logistic Regression, class_weight balanced]
+    LR --> EV[Macro-F1 và F1 theo nhãn]
+    EV --> RP[(outputs/metrics/*.json)]
+    EV --> FIN{Chốt cấu hình}
+    FIN --> FULL[Huấn luyện trên toàn bộ tập phát triển]
+    FULL --> TEST[Đánh giá một lần trên tập kiểm tra độc lập]
+    FULL --> ART[(models/baseline_tfidf_lr.joblib)]

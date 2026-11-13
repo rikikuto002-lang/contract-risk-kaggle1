@@ -1,0 +1,10 @@
+kaggle.json
+__pycache__/
+.pytest_cache/
+*.pyc
+outputs/reports/
+outputs/logs/
+models/*.joblib
+data/interim/
+data/processed/
+.env

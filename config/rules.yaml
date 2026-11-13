@@ -1,0 +1,40 @@
+# Tham số của Rule-based engine.
+#
+# CẢNH BÁO: các ngưỡng và căn cứ dưới đây là giá trị minh họa theo báo cáo thiết kế.
+# Trước khi vận hành phải đối chiếu với văn bản còn hiệu lực tại thời điểm triển khai
+# (pháp luật Việt Nam thay đổi thường xuyên). Chỉ sửa file này, không sửa mã nguồn.
+
+CIV-01:
+  description: "Lãi chậm trả / lãi phạt vượt ngưỡng %/năm"
+  max_annual_rate_pct: 20.0
+  citation: "Bộ luật Dân sự 2015, Điều 468 (cần đối chiếu hiệu lực)"
+
+CIV-02:
+  description: "Mức phạt vi phạm vượt tỷ lệ trên giá trị nghĩa vụ"
+  max_penalty_pct: 8.0
+  citation: "Bộ luật Dân sự 2015, Điều 418 (cần đối chiếu hiệu lực)"
+
+LAB-01:
+  description: "Người sử dụng lao động giữ giấy tờ gốc của người lao động"
+  citation: "Bộ luật Lao động 2019 về quyền và nghĩa vụ của người lao động (cần đối chiếu)"
+
+LAB-02:
+  description: "Thời gian thử việc vượt mức tối đa theo chức danh"
+  max_probation_days:
+    quan_ly: 180
+    cao_dang: 60
+    trung_cap: 30
+    mac_dinh: 6
+  citation: "Bộ luật Lao động 2019 về thử việc (cần đối chiếu Điều 25)"
+
+LAB-03:
+  description: "Thời hạn báo trước khi đơn phương chấm dứt quá ngắn"
+  min_notice_days:
+    khong_xac_dinh_thoi_han: 45
+    xac_dinh_thoi_han: 30
+    duoi_12_thang: 3
+  citation: "Bộ luật Lao động 2019 về đơn phương chấm dứt (cần đối chiếu Điều 35)"
+
+LEA-01:
+  description: "Tiền đặt cọc không hoàn lại vô điều kiện (thuê nhà)"
+  citation: "Bộ luật Dân sự 2015 về đặt cọc và thuê tài sản (cần xác minh điều khoản cụ thể)"

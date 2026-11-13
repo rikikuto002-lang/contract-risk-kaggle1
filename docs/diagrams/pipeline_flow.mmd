@@ -1,0 +1,24 @@
+%% Sơ đồ luồng xử lý một hợp đồng: mục đích - thể hiện thứ tự gọi hàm trong src/pipeline.py
+sequenceDiagram
+    participant CLI as src.pipeline.main
+    participant N as normalize_text
+    participant S as segment_clauses
+    participant R as run_rules
+    participant G as is_grounded
+    participant ML as classify_clauses
+    participant SC as score_findings
+    CLI->>N: văn bản thô
+    N-->>CLI: văn bản chuẩn hóa
+    CLI->>S: văn bản chuẩn hóa
+    S-->>CLI: danh sách Clause(key, article, text)
+    CLI->>R: clauses + rules.yaml
+    R-->>CLI: findings (vi_pham / can_xem_xet)
+    CLI->>G: evidence của từng finding
+    G-->>CLI: trich_dan_hop_le
+    opt có --model
+        CLI->>ML: clauses + bundle.joblib
+        ML-->>CLI: nhãn đa nhãn theo ngưỡng
+    end
+    CLI->>SC: findings + trọng số + ngưỡng
+    SC-->>CLI: điểm, mức độ
+    CLI-->>CLI: ghi report.json

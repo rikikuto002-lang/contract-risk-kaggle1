@@ -1,0 +1,14 @@
+%% Vòng đời MLOps: mục đích - thể hiện điều kiện huấn luyện lại và cổng triển khai
+flowchart LR
+    NEW[Hợp đồng mới đã ẩn danh] --> DQ{Kiểm tra chất lượng dữ liệu}
+    DQ -- Đạt --> CT[Huấn luyện lại CT]
+    DQ -- Không đạt --> ALERT[Cảnh báo đội dữ liệu]
+    CT --> CMP{Tốt hơn mô hình hiện tại?}
+    CMP -- Có --> CD[Triển khai CD]
+    CMP -- Không --> KEEP[Giữ mô hình cũ]
+    CD --> MON[Giám sát]
+    MON --> DRIFT{Data drift PSI > 0,2 hoặc Macro-F1 giảm > 5% trong 7 ngày}
+    DRIFT -- Có --> CT
+    DRIFT -- Không --> MON
+    LAW[Thay đổi văn bản pháp luật] --> RULES[Cập nhật config/rules.yaml và kiểm tra hiệu lực]
+    RULES --> CMP

@@ -1,0 +1,13 @@
+{
+  "id": "TODO_USERNAME/contract-risk-pipeline",
+  "title": "Contract Risk Pipeline",
+  "code_file": "kernel_entry.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": ["TODO_USERNAME/contract-risk-code"],
+  "competition_sources": [],
+  "kernel_sources": []
+}
